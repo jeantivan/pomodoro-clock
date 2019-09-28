@@ -17,9 +17,9 @@ function SessionLabel() {
   };
   return (
     <section className="session-label">
-      <h4 id="session-label" className="label-title">
+      <h3 id="session-label" className="label-title">
         Session Length
-      </h4>
+      </h3>
       <div className="label-body">
         <h3 id="session-length">{state.sessionLength}</h3>
       </div>

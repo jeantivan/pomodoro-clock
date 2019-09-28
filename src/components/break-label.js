@@ -18,9 +18,9 @@ function BreakLabel() {
 
   return (
     <section className="break-label">
-      <h4 id="break-label" className="label-title">
+      <h3 id="break-label" className="label-title">
         Break Length
-      </h4>
+      </h3>
       <div className="label-body">
         <h3 id="break-length">{state.breakLength}</h3>
       </div>

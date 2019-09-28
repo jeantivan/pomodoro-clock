@@ -35,11 +35,20 @@ const rootReducer = (state, action) => {
     case "DECREMENT_MIN_LEFT":
       return { ...state, minLeft: state.minLeft ? state.minLeft - 1 : 0 };
     case "SWITCH_TIMER":
+      if (state.sessionType === "Session")
+        return {
+          ...state,
+          sessionType: "Break",
+          minLeft: state.breakLength,
+          secLeft: 0,
+          intervalID: null
+        };
       return {
         ...state,
-        sessionType: action.payload.sessionType,
-        minLeft: action.payload.minLeft,
-        secLeft: 0
+        sessionType: "Session",
+        minLeft: state.sessionLength,
+        secLeft: 0,
+        intervalID: null
       };
     case "SWITCH_TIMER_RUNNING":
       return { ...state, timerRunning: !state.timerRunning };

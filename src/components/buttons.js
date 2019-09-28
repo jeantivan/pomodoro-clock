@@ -1,14 +1,14 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useRef } from "react";
 import { PomodoroContext, initialState } from "../Context";
 import accurateInterval from "../accurateInterval";
 
 function Buttons(props) {
   const { state, dispatch } = useContext(PomodoroContext);
-
+  const beep = useRef();
   const handleReset = () => {
-    if (state.intervalID) {
-      state.intervalID.cancel();
-    }
+    if (state.intervalID !== null) state.intervalID.cancel();
+    beep.current.pause();
+    beep.current.currentTime = 0;
     dispatch({ type: "RESET", payload: initialState });
   };
 
@@ -20,39 +20,29 @@ function Buttons(props) {
       return dispatch({ type: "SET_INTERVAL_ID", payload: null });
     }
 
-    let interval = accurateInterval(1000, countDown);
-    dispatch({ type: "SET_INTERVAL_ID", payload: interval });
+    countDown();
   };
 
   const countDown = () => {
-    dispatch({ type: "DECREMENT_SEC_LEFT" });
+    let interval = accurateInterval(1000, () => {
+      dispatch({ type: "DECREMENT_SEC_LEFT" });
+    });
+
+    dispatch({ type: "SET_INTERVAL_ID", payload: interval });
+    console.log(state.sessionType);
+    console.log(interval);
   };
 
   const switchTimer = () => {
-    dispatch({ type: "SWITCH_TIMER_RUNNING" });
     state.intervalID.cancel();
-    dispatch({ type: "SET_INTERVAL_ID", payload: null });
-
-    dispatch({
-      type: "SWITCH_TIMER",
-      payload:
-        state.sessionType === "Session"
-          ? {
-              sessionType: "Break",
-              minLeft: state.breakLength
-            }
-          : {
-              sessionType: "Session",
-              minLeft: state.sessionLength
-            }
-    });
-    handlePlay();
+    beep.current.play();
+    dispatch({ type: "SWITCH_TIMER" });
+    countDown();
   };
 
   useEffect(() => {
-    console.log(state.minLeft);
-    console.log(state.secLeft);
     if (state.minLeft === 0 && state.secLeft === 0) return switchTimer();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [state.minLeft, state.secLeft]);
 
   return (
@@ -67,6 +57,12 @@ function Buttons(props) {
       <button id="reset" onClick={handleReset} className="btn btn-reset">
         <i className="material-icons">restore</i>
       </button>
+      <audio
+        id="beep"
+        src="https://goo.gl/65cBl1"
+        preload="auto"
+        ref={beep}
+      ></audio>
     </section>
   );
 }
