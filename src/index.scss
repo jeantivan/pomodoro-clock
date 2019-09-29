@@ -150,25 +150,34 @@ body {
   height: 100vh;
   width: 100%;
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  grid-template-rows: repeat(4, auto);
+  /* grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: repeat(4, auto); */
   grid-row-gap: 5px;
+  grid-template-areas:
+    "title title"
+    "timer timer"
+    "start-stop start-stop"
+    "session break"
+    "by by";
 
   .title {
-    grid-area: 1 / 1 / 2 / 3;
+    grid-area: title;
   }
   .timer-label {
-    grid-area: 2 / 1 / 3 / 3;
+    grid-area: timer;
   }
   .buttons {
-    grid-area: 3 / 1 / 4 / 3;
+    grid-area: start-stop;
     flex-direction: row;
   }
   .session-label {
-    grid-area: 4 / 1 / 5 / 2;
+    grid-area: session;
   }
   .break-label {
-    grid-area: 4 / 2 / 5 / 3;
+    grid-area: break;
+  }
+  .by {
+    grid-area: by;
   }
 }
 
@@ -316,15 +325,13 @@ body {
 }
 @media screen and (max-width: 600px) {
   .App {
-    grid-template-columns: 1fr;
-    grid-template-rows: repeat(5, auto);
     grid-row-gap: 20px;
-
-    .session-label {
-      grid-area: 4 / 1 / 5 / 2;
-    }
-    .break-label {
-      grid-area: 5 / 1 / 6 / 2;
-    }
+    grid-template-areas:
+      "title"
+      "timer"
+      "start-stop"
+      "session"
+      "break"
+      "by";
   }
 }

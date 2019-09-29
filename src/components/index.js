@@ -19,6 +19,20 @@ function App() {
       <SessionLabel />
 
       <BreakLabel />
+
+      <section className="by">
+        Made with{" "}
+        <span role="img" aria-label="love">
+          ❤️
+        </span>{" "}
+        <a
+          href="https://github.com/jptivan53"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Jean T.
+        </a>
+      </section>
     </>
   );
 }
