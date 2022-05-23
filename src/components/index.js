@@ -30,7 +30,7 @@ function App() {
           target="_blank"
           rel="noopener noreferrer"
         >
-          Jean T.
+          Jean Tivan
         </a>
       </section>
     </>
