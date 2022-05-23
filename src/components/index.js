@@ -26,7 +26,7 @@ function App() {
           ❤️
         </span>{" "}
         <a
-          href="https://github.com/jptivan53"
+          href="https://github.com/jeantivan"
           target="_blank"
           rel="noopener noreferrer"
         >
