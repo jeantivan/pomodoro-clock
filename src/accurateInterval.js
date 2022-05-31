@@ -4,7 +4,7 @@
 //
 //source: https://gist.github.com/Squeegy/1d99b3cd81d610ac7351
 
-export default function(time, fn) {
+export default function accurateInterval(time, fn) {
   var cancel, nextAt, timeout, wrapper, _ref;
   nextAt = new Date().getTime() + time;
   timeout = null;
@@ -13,16 +13,16 @@ export default function(time, fn) {
     fn = _ref[0];
     time = _ref[1];
   }
-  wrapper = function() {
+  wrapper = function () {
     nextAt += time;
     timeout = setTimeout(wrapper, nextAt - new Date().getTime());
     return fn();
   };
-  cancel = function() {
+  cancel = function () {
     return clearTimeout(timeout);
   };
   timeout = setTimeout(wrapper, nextAt - new Date().getTime());
   return {
-    cancel: cancel
+    cancel: cancel,
   };
 }
