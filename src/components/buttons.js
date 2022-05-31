@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useRef } from "react";
 import { PomodoroContext, initialState } from "../Context";
 import accurateInterval from "../accurateInterval";
+import BeepSound from "../audio/BeepSound.wav";
 
 function Buttons(props) {
   const { state, dispatch } = useContext(PomodoroContext);
@@ -29,13 +30,11 @@ function Buttons(props) {
     });
 
     dispatch({ type: "SET_INTERVAL_ID", payload: interval });
-    console.log(state.sessionType);
-    console.log(interval);
   };
 
   const switchTimer = () => {
-    state.intervalID.cancel();
     beep.current.play();
+    state.intervalID.cancel();
     dispatch({ type: "SWITCH_TIMER" });
     countDown();
   };
@@ -57,12 +56,7 @@ function Buttons(props) {
       <button id="reset" onClick={handleReset} className="btn btn-reset">
         <i className="material-icons">restore</i>
       </button>
-      <audio
-        id="beep"
-        src="https://goo.gl/65cBl1"
-        preload="auto"
-        ref={beep}
-      ></audio>
+      <audio id="beep" src={BeepSound} preload="auto" ref={beep}></audio>
     </section>
   );
 }
