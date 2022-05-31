@@ -6,9 +6,11 @@ import "./index.scss";
 // Context
 import { PomodoroProvider } from "./Context";
 
-ReactDOM.render(
-  <PomodoroProvider>
-    <App />
-  </PomodoroProvider>,
-  document.getElementById("App")
+const root = ReactDOM.createRoot(document.getElementById("root"));
+root.render(
+  <React.StrictMode>
+    <PomodoroProvider>
+      <App />
+    </PomodoroProvider>
+  </React.StrictMode>
 );
